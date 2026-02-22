@@ -88,13 +88,13 @@ body {
 }
 
 .image-section.logo img {
-    max-width: 300px;
+    max-width: 150px;
 }
 
 .image-section.banner img {
-    max-width: 500px;
+    max-width: 700px;
     border-radius: 12px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0px 0px rgba(0, 0, 0, 0.5);
 }
 
 /* Typography */
@@ -104,9 +104,8 @@ body {
     color: var(--accent-blue);
     text-align: center;
     padding: 1rem 2rem;
-    background: rgba(74, 158, 255, 0.1);
     border-radius: 8px;
-    border: 1px solid rgba(74, 158, 255, 0.2);
+    border: 0px;
 }
 
 .divider {
