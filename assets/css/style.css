@@ -64,7 +64,7 @@ body {
 .site-main {
     position: relative;
     z-index: 1;
-    padding: 2rem 1rem;
+    padding: 0.7rem 1rem;
 }
 
 .inner {
@@ -73,7 +73,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 2rem;
+    gap: 1rem;
 }
 
 /* Images */
@@ -178,8 +178,8 @@ body {
 
 .content-section p {
     margin-bottom: 1.25rem;
-    color: var(--text-secondary);
-    font-size: 0.95rem;
+    color: #BFBBC7;
+    font-size: 0.63rem;
 }
 
 .content-section:has(+ .checkbox-icon) p:last-child {
@@ -203,8 +203,9 @@ body {
 }
 
 .stats-section p {
-    color: var(--text-secondary);
+    color: #BFBBC7;
     margin-bottom: 1rem;
+    font-size: 0.63rem;
 }
 
 .stats-section p:last-child {
@@ -257,10 +258,10 @@ body {
 }
 
 .paper-wallet-text p {
-    color: var(--text-secondary);
-    font-size: 0.9rem;
+    color: #BFBBC7;
+    font-size: 0.63rem;
     margin-bottom: 1rem;
-    text-align: left;
+    text-align: center;
 }
 
 .paper-wallet-text p.emphasis {
