@@ -91,8 +91,20 @@ body {
     max-width: 150px;
 }
 
+.image-section.banner {
+    margin-top: -2rem;
+    margin-bottom: -2rem;
+    max-width: 550px;
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+}
+
 .image-section.banner img {
-    max-width: 700px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
     border-radius: 12px;
     box-shadow: 0 0px 0px rgba(0, 0, 0, 0.5);
 }
@@ -101,7 +113,7 @@ body {
 .highlight-text {
     font-size: 1.25rem;
     font-weight: 600;
-    color: var(--accent-blue);
+    color: #ffffff;
     text-align: center;
     padding: 1rem 2rem;
     border-radius: 8px;
@@ -137,6 +149,16 @@ body {
     background: rgba(125, 211, 252, 0.1);
 }
 
+.link.white-underlined {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+.link.white-underlined:hover {
+    color: var(--accent-blue);
+    background: transparent;
+}
+
 .link.highlight {
     background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
     color: white;
@@ -158,6 +180,10 @@ body {
     margin-bottom: 1.25rem;
     color: var(--text-secondary);
     font-size: 0.95rem;
+}
+
+.content-section:has(+ .checkbox-icon) p:last-child {
+    margin-bottom: 0;
 }
 
 .content-section p.emphasis {
@@ -210,13 +236,24 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
     opacity: 0;
     transition: opacity 1s ease;
+    transform-origin: left center;
 }
 
 .slideshow .slide.active {
     opacity: 1;
+    animation: kenBurnsLeft 6s ease-out forwards;
+}
+
+@keyframes kenBurnsLeft {
+    0% {
+        transform: scale(1.45);
+    }
+    100% {
+        transform: scale(1.75);
+    }
 }
 
 .paper-wallet-text p {
@@ -267,7 +304,7 @@ body {
 /* Token Info */
 .token-info {
     text-align: center;
-    padding: 2rem;
+    padding: 0;
     border: 0px solid var(--border-color);
     border-radius: 12px;
 }
@@ -289,7 +326,7 @@ body {
 .token-info p {
     color: var(--text-secondary);
     font-size: 0.9rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0;
 }
 
 /* Footer Images */
@@ -323,6 +360,20 @@ body {
 
 .founders img:hover {
     transform: scale(1.1);
+}
+
+/* Checkbox Icon */
+.checkbox-icon {
+    text-align: center;
+    margin: -0.75rem 0;
+}
+
+.content-section + .checkbox-icon {
+    margin-top: -1.25rem;
+}
+
+.checkbox-icon svg {
+    display: inline-block;
 }
 
 /* Animations */
@@ -364,6 +415,12 @@ body {
     .highlight-text {
         font-size: 1rem;
         padding: 0.75rem 1rem;
+    }
+
+    .image-section.banner {
+        margin-top: -1.5rem;
+        margin-bottom: -1.5rem;
+        height: 200px;
     }
 
     .image-section.banner img {
