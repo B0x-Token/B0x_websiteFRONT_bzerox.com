@@ -13,6 +13,9 @@
             animation: none !important;
             opacity: 1 !important;
         }
+        .links-section + .links-section {
+            margin-top: -0.75rem;
+        }
     </style>
 </head>
 <body>
@@ -198,51 +201,33 @@
             const viewportCenter = viewportHeight / 2;
             const scrollY = window.scrollY;
             const documentHeight = document.documentElement.scrollHeight;
-            const isAtTop = scrollY < 200; // At or near top of page
-            const isAtBottom = scrollY + viewportHeight > documentHeight - 200; // At or near bottom of page
-
-            console.log('Updating fade effect, found', fadeElements.length, 'elements');
+            const isAtTop = scrollY < 200;
+            const isAtBottom = scrollY + viewportHeight > documentHeight - 200;
 
             fadeElements.forEach(element => {
                 const rect = element.getBoundingClientRect();
-                const elementCenter = rect.top + (rect.height / 2);
+
+                // Use nearest point of element to viewport center.
+                // For tall elements this means: as soon as the top enters the active
+                // zone the element is fully visible, instead of waiting for the
+                // element's midpoint to reach the center (which was the bug on small screens).
+                const nearestPoint = Math.max(rect.top, Math.min(rect.bottom, viewportCenter));
+                const distanceFromCenter = Math.abs(nearestPoint - viewportCenter);
 
                 let opacity;
 
-                // If at top of page, unfade top 60% of viewport
-                if (isAtTop && elementCenter < viewportHeight * 0.6) {
+                if (isAtTop && rect.top < viewportHeight * 0.6) {
                     opacity = 1;
-                }
-                // If at bottom of page, unfade bottom 60% of viewport
-                else if (isAtBottom && elementCenter > viewportHeight * 0.4) {
+                } else if (isAtBottom && rect.bottom > viewportHeight * 0.4) {
                     opacity = 1;
-                }
-                // Top 1/8 of screen - fade
-                else if (elementCenter < viewportHeight * 0.125) {
-                    opacity = 0.15;
-                }
-                // Bottom 1/8 of screen - fade
-                else if (elementCenter > viewportHeight * 0.875) {
-                    opacity = 0.15;
-                }
-                // Middle zone - keep clear (wider range for better readability)
-                else if (elementCenter >= viewportHeight * 0.2 && elementCenter <= viewportHeight * 0.8) {
-                    opacity = 1;
-                }
-                // Transition zones
-                else {
-                    const distanceFromCenter = Math.abs(elementCenter - viewportCenter);
-                    const fadeRange = viewportHeight / 3;
-                    opacity = 1 - (distanceFromCenter / fadeRange);
-                    opacity = Math.max(0.15, Math.min(1, opacity));
+                } else {
+                    // Visible when any part of element is within 30% of viewport height from center
+                    // (leaves top 20% and bottom 20% of viewport invisible)
+                    opacity = distanceFromCenter <= viewportHeight * 0.3 ? 1 : 0;
                 }
 
-                // Apply opacity with !important to override any CSS
                 element.style.setProperty('opacity', opacity, 'important');
-
-                // Optional: slight scale effect
-                const scale = 0.95 + (opacity * 0.05);
-                element.style.transform = `scale(${scale})`;
+                element.style.transform = opacity === 1 ? 'scale(1)' : 'scale(0.95)';
             });
         }
 
